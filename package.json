@@ -1,0 +1,25 @@
+{
+  "name": "vessel-state",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Takes a stream of data and decodes it into a reactive state for use in Vue components.",
+  "repository": "https://github.com/ricardoboss/vessel-state",
+  "authors": [
+    "Ricardo Boss <contact@ricardoboss.de>"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "extended-nmea": "2.0.0-beta3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
