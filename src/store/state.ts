@@ -49,3 +49,13 @@ export default interface VesselState {
 		},
 	},
 }
+
+export const initial = {
+	stats: {
+		messages: {
+			count: 0,
+			invalid: 0,
+			errors: 0,
+		}
+	}
+} as VesselState;
