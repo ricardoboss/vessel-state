@@ -1,47 +1,47 @@
 import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
 
 export default interface VesselState {
-	location?: {
+	location: {
 		latitude?: GeoCoordinate,
 		longitude?: GeoCoordinate,
 		altitude?: number,
 		geoidalSeparation?: number,
 	},
-	orientation?: {
+	orientation: {
 		roll?: number,
 		pitch?: number,
 		heading?: number,
 	},
-	route?: {
+	route: {
 		speed?: number,
 		course?: number,
 		rateOfTurn?: number,
 		magneticTrackAngle?: number,
 	},
-	gps?: {
+	gps: {
 		fix?: GgaQualityIndicator,
-		dilutionOfPrecision?: {
-			position: number,
-			horizontal: number,
-			vertical: number,
+		dilutionOfPrecision: {
+			position?: number,
+			horizontal?: number,
+			vertical?: number,
 		},
-		satellites?: {
+		satellites: {
 			[keyof: string]: GsvSatellite[]
 		},
 		time?: TimeOnly,
 		date?: DateOnly,
 	},
-	source?: {
-		manufacturer?: {
+	source: {
+		manufacturer: {
 			name?: string,
 		},
-		battery?: {
+		battery: {
 			percent?: number,
 			voltage?: number,
 		},
 	},
 	stats: {
-		lastUpdate?: Date,
+		lastUpdate?: number,
 		messages: {
 			count: number,
 			invalid: number,
@@ -51,11 +51,22 @@ export default interface VesselState {
 }
 
 export const initial = {
+	location: {},
+	gps: {
+		dilutionOfPrecision: {},
+		satellites: {},
+	},
+	orientation: {},
+	route: {},
+	source: {
+		manufacturer: {},
+		battery: {},
+	},
 	stats: {
 		messages: {
 			count: 0,
 			invalid: 0,
 			errors: 0,
-		}
-	}
+		},
+	},
 } as VesselState;
