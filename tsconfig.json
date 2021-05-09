@@ -1,38 +1,46 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2018",
+    "module": "ESNext",
     "strict": true,
-    "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
     "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
     "declaration": true,
-    "outDir": "./dist",
-    "types": [
-      "webpack-env"
+    "declarationMap": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
     ],
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "test/*": [
+        "test/*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
+    "types": [
+      "node"
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src",
+    "test"
   ],
   "exclude": [
     "node_modules"

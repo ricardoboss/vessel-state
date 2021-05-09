@@ -1,8 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
 import Vue from 'vue';
-import {Store} from "vuex";
-import VesselState from "./store/state";
+import {Store} from 'vuex';
+import {VesselState} from '@/store';
 
 declare module '*.vue' {
   import Vue from 'vue'

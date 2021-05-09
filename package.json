@@ -7,9 +7,11 @@
     "test": "cross-env TS_NODE_TRANSPILE_ONLY=true NODE_ENV=test mocha --ui bdd --recursive --require ts-node/register test/**/*.test.ts",
     "test:watch": "npm run test -- --watch --watch-extensions ts --watch-files src,test --reporter min"
   },
-  "main": "dist/index.js",
+  "main": "dist/vessel-state.common.js",
+  "module": "dist/vessel-state.umd.js",
+  "typings": "dist/src/main.d.ts",
   "files": [
-    "dist/*"
+    "dist"
   ],
   "dependencies": {
     "extended-nmea": "2.0.0-beta11",

@@ -1,10 +1,9 @@
-// noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
-
-import store from './store'
+import {default as VesselStateStore} from '@/store';
 import _Vue from 'vue';
 
-export function VesselStatePlugin(Vue: typeof _Vue, options?: VesselStateOptions): void {
-	Vue.prototype.$vessel = store;
+export default class VesselStatePlugin {
+	constructor(Vue: typeof _Vue) {
+		// noinspection JSUnusedGlobalSymbols
+		Vue.prototype.$vessel = VesselStateStore;
+	}
 }
-
-export class VesselStateOptions {}
