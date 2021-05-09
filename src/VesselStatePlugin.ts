@@ -7,6 +7,4 @@ export function VesselStatePlugin(Vue: typeof _Vue, options?: VesselStateOptions
 	Vue.prototype.$vessel = store;
 }
 
-export class VesselStateOptions {
-
-}
+export class VesselStateOptions {}
