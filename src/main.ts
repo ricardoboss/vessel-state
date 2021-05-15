@@ -1,12 +1,9 @@
-import {VesselState, VesselStateActions, VesselStateGetters} from './store'
-import _Vue from 'vue';
-import VesselStatePlugin from './VesselStatePlugin';
+import {default as Vue_} from "vue";
+import {VesselState, VesselStateActions, VesselStateGetters, VesselStateModule} from "./module"
 
-export { VesselState, VesselStateActions, VesselStateGetters }
+export {VesselStateModule, VesselState, VesselStateActions, VesselStateGetters }
 
 // noinspection JSUnusedGlobalSymbols
-export default {
-	install(Vue: typeof _Vue): void {
-		new VesselStatePlugin(Vue);
-	}
+export default function(Vue: Vue_) {
+	Vue.$store.registerModule('vessel', new VesselStateModule<unknown>());
 }

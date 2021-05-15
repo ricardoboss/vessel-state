@@ -1,28 +1,28 @@
 import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
-import VesselState from "../store/state";
-import {VesselStateMutations} from "../store/mutations";
+import VesselState from "./state";
+import {VesselStateMutations} from "./mutations";
 import {Decoder, GGA, GSV, HDT, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
-type AContext = Omit<ActionContext<VesselState, VesselState>, "commit"> & {
+type AContext<R> = Omit<ActionContext<VesselState, R>, "commit"> & {
 	commit: <K extends MutationKey>(type: K, payload?: Parameters<VesselStateMutations[K]>[1], options?: CommitOptions) => void;
 };
 
-type VesselStateActionHandler = (this: Store<VesselState>, context: AContext, payload?: any) => any;
-interface VesselStateActionObject {
+type VesselStateActionHandler<R> = (this: Store<R>, context: AContext<R>, payload?: any) => any;
+interface VesselStateActionObject<R> {
 	root?: boolean;
-	handler: VesselStateActionHandler;
+	handler: VesselStateActionHandler<R>;
 }
-type VesselStateAction = VesselStateActionHandler | VesselStateActionObject;
+type VesselStateAction<R> = VesselStateActionHandler<R> | VesselStateActionObject<R>;
 
-interface VesselStateActionTree extends ActionTree<VesselState, VesselState>{
-	[key: string]: VesselStateAction;
+interface VesselStateActionTree<R> extends ActionTree<VesselState, R>{
+	[key: string]: VesselStateAction<R>;
 }
 
-export class VesselStateActions implements VesselStateActionTree {
-	[key: string]: VesselStateAction;
+export class VesselStateActions<R> implements VesselStateActionTree<R> {
+	[key: string]: VesselStateAction<R>;
 
-	update(context: AContext, payload: string): any {
+	update(context: AContext<R>, payload: string): any {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
@@ -66,5 +66,3 @@ export class VesselStateActions implements VesselStateActionTree {
 		}
 	}
 }
-
-export default new VesselStateActions();
