@@ -1,6 +1,6 @@
-import {Action, ActionContext, ActionTree, CommitOptions} from "vuex";
-import VesselState from "@/store/state";
-import {VesselStateMutations} from "@/store/mutations";
+import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
+import VesselState from "../store/state";
+import {VesselStateMutations} from "../store/mutations";
 import {Decoder, GGA, GSV, HDT, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;

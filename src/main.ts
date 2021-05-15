@@ -1,6 +1,6 @@
-import {VesselState, VesselStateActions, VesselStateGetters} from '@/store'
+import {VesselState, VesselStateActions, VesselStateGetters} from './store'
 import _Vue from 'vue';
-import VesselStatePlugin from '@/VesselStatePlugin';
+import VesselStatePlugin from './VesselStatePlugin';
 
 export { VesselState, VesselStateActions, VesselStateGetters }
 

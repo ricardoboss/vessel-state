@@ -1,5 +1,5 @@
 import {Getter, GetterTree} from "vuex";
-import VesselState from "@/store/state";
+import VesselState from "../store/state";
 
 export class VesselStateGetters implements GetterTree<VesselState, any> {
 	[key: string]: Getter<VesselState, any>;

@@ -1,4 +1,4 @@
-import {default as VesselStateStore} from '@/store';
+import {default as VesselStateStore} from './store';
 import _Vue from 'vue';
 
 export default class VesselStatePlugin {

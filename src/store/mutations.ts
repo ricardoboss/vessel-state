@@ -1,5 +1,5 @@
 import {Mutation, MutationTree} from "vuex";
-import VesselState from "@/store/state";
+import VesselState from "../store/state";
 import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
 
 export class VesselStateMutations implements MutationTree<VesselState> {
