@@ -2,46 +2,46 @@ import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} fr
 
 export default interface VesselState {
 	location: {
-		latitude?: GeoCoordinate,
-		longitude?: GeoCoordinate,
-		altitude?: number,
-		geoidalSeparation?: number,
+		latitude: GeoCoordinate,
+		longitude: GeoCoordinate,
+		altitude: number,
+		geoidalSeparation: number,
 	},
 	orientation: {
-		roll?: number,
-		pitch?: number,
-		heading?: number,
+		roll: number,
+		pitch: number,
+		heading: number,
 	},
 	route: {
-		speed?: number,
-		course?: number,
-		rateOfTurn?: number,
-		magneticTrackAngle?: number,
+		speed: number,
+		course: number,
+		rateOfTurn: number,
+		magneticTrackAngle: number,
 	},
 	gps: {
 		fix?: GgaQualityIndicator,
 		dilutionOfPrecision: {
-			position?: number,
-			horizontal?: number,
-			vertical?: number,
+			position: number,
+			horizontal: number,
+			vertical: number,
 		},
 		satellites: {
 			[keyof: string]: GsvSatellite[]
 		},
-		time?: TimeOnly,
-		date?: DateOnly,
+		time: TimeOnly,
+		date: DateOnly,
 	},
 	source: {
 		manufacturer: {
-			name?: string,
+			name: string,
 		},
 		battery: {
-			percent?: number,
-			voltage?: number,
+			percent: number,
+			voltage: number,
 		},
 	},
 	stats: {
-		lastUpdate?: number,
+		lastUpdate: number,
 		messages: {
 			count: number,
 			invalid: number,
@@ -51,18 +51,45 @@ export default interface VesselState {
 }
 
 export const initial = {
-	location: {},
-	gps: {
-		dilutionOfPrecision: {},
-		satellites: {},
+	location: {
+		latitude: new GeoCoordinate('000.000', 'N'),
+		longitude: new GeoCoordinate('000.000', 'E'),
+		altitude: 0,
+		geoidalSeparation: 0,
 	},
-	orientation: {},
-	route: {},
+	gps: {
+		dilutionOfPrecision: {
+			position: 0,
+			vertical: 0,
+			horizontal: 0,
+		},
+		satellites: {},
+		time: new TimeOnly(0),
+		date: new DateOnly(0, 0, 0),
+		fix: GgaQualityIndicator.No_Fix,
+	},
+	orientation: {
+		heading: 0,
+		pitch: 0,
+		roll: 0,
+	},
+	route: {
+		rateOfTurn: 0,
+		course: 0,
+		speed: 0,
+		magneticTrackAngle: 0,
+	},
 	source: {
-		manufacturer: {},
-		battery: {},
+		manufacturer: {
+			name: '',
+		},
+		battery: {
+			voltage: 0,
+			percent: 0,
+		},
 	},
 	stats: {
+		lastUpdate: 0,
 		messages: {
 			count: 0,
 			invalid: 0,
