@@ -1,6 +1,20 @@
 import {Mutation, MutationTree} from "vuex";
-import VesselState from ".//state";
+import VesselState from "./state";
 import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
+
+interface CustomMutationPayload {
+	path: string;
+	value: any;
+}
+
+function assign<T extends object>(obj: T, path: string, value: any): void {
+	const segments = path.split(".");
+
+	if (segments.length > 1) {
+		const front = segments.shift()!;
+		assign(obj[front] = Object.prototype.toString.call(obj[front]) === "[object Object]" ? obj[front] : {}, path, value);
+	} else obj[path[0]] = value;
+}
 
 export interface VesselStateMutations extends MutationTree<VesselState> {
 	[key: string]: Mutation<VesselState>;
@@ -54,6 +68,8 @@ export interface VesselStateMutations extends MutationTree<VesselState> {
 	countInvalid(state: VesselState): any;
 
 	countError(state: VesselState): any;
+
+	custom(state: VesselState, payload: CustomMutationPayload): any;
 }
 
 export default {
@@ -174,4 +190,8 @@ export default {
 		state.stats.messages.count++;
 		state.stats.messages.errors++;
 	},
+
+	custom(state: VesselState, payload: CustomMutationPayload): any {
+		assign(state, payload.path, payload.value);
+	}
 } as VesselStateMutations;
