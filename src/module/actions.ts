@@ -22,7 +22,7 @@ interface VesselStateActionTree<R> extends ActionTree<VesselState, R>{
 export class VesselStateActions<R> implements VesselStateActionTree<R> {
 	[key: string]: VesselStateAction<R>;
 
-	["update"](context: AContext<R>, payload: string): any {
+	update(context: AContext<R>, payload: string): any {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
