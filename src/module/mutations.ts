@@ -2,7 +2,7 @@ import {Mutation, MutationTree} from "vuex";
 import VesselState from ".//state";
 import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
 
-export class VesselStateMutations implements MutationTree<VesselState> {
+export default class VesselStateMutations implements MutationTree<VesselState> {
 	[key: string]: Mutation<VesselState>;
 
 	latitude(state: VesselState, payload: GeoCoordinate): any {
@@ -123,5 +123,3 @@ export class VesselStateMutations implements MutationTree<VesselState> {
 		state.stats.messages.errors++;
 	}
 }
-
-export default new VesselStateMutations();

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex, {Module} from 'vuex'
 import VesselState, {initial as state} from './state'
-import {VesselStateGetters} from './getters'
-import {VesselStateMutations} from './mutations'
-import {VesselStateActions} from './actions'
+import VesselStateGetters from './getters'
+import VesselStateMutations from './mutations'
+import VesselStateActions from './actions'
 
 Vue.use(Vuex)
 
