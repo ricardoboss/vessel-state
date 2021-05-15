@@ -1,6 +1,6 @@
 import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
 import VesselState from "./state";
-import VesselStateMutations from "./mutations";
+import {VesselStateMutations} from "./mutations";
 import {Decoder, GGA, GSV, HDT, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
@@ -19,10 +19,14 @@ interface VesselStateActionTree<R> extends ActionTree<VesselState, R>{
 	[key: string]: VesselStateAction<R>;
 }
 
-export default class VesselStateActions<R> implements VesselStateActionTree<R> {
+export interface VesselStateActions<R> extends VesselStateActionTree<R> {
 	[key: string]: VesselStateAction<R>;
 
-	update(context: AContext<R>, payload: string): any {
+	update(context: AContext<R>, payload: string): any;
+}
+
+export default {
+	update(context: AContext<any>, payload: string): any {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
@@ -65,4 +69,4 @@ export default class VesselStateActions<R> implements VesselStateActionTree<R> {
 			context.commit("countError");
 		}
 	}
-}
+} as VesselStateActions<any>;
