@@ -4,14 +4,25 @@ import {VesselStateMutations} from "../store/mutations";
 import {Decoder, GGA, GSV, HDT, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
-type ctx = Omit<ActionContext<VesselState, VesselState>, "commit"> & {
+type AContext = Omit<ActionContext<VesselState, VesselState>, "commit"> & {
 	commit: <K extends MutationKey>(type: K, payload?: Parameters<VesselStateMutations[K]>[1], options?: CommitOptions) => void;
 };
 
-export class VesselStateActions implements ActionTree<VesselState, VesselState> {
-	[key: string]: Action<VesselState, VesselState>;
+type VesselStateActionHandler = (this: Store<VesselState>, context: AContext, payload?: any) => any;
+interface VesselStateActionObject {
+	root?: boolean;
+	handler: VesselStateActionHandler;
+}
+type VesselStateAction = VesselStateActionHandler | VesselStateActionObject;
 
-	["update"](context: ctx, payload: string): any {
+interface VesselStateActionTree extends ActionTree<VesselState, VesselState>{
+	[key: string]: VesselStateAction;
+}
+
+export class VesselStateActions implements VesselStateActionTree {
+	[key: string]: VesselStateAction;
+
+	update(context: AContext, payload: string): any {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
