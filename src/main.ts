@@ -1,13 +1,34 @@
-import {VesselState, VesselStateActions, VesselStateGetters, VesselStateModule} from "./module"
+import {
+	CustomVesselStateMutation,
+	CustomVesselStateMutations,
+	CustomVesselStateMutationRegistrar,
+	VesselState,
+	VesselStateActionContext,
+	VesselStateActions,
+	VesselStateGetters,
+	VesselStateModule,
+	VesselStateModuleOptions
+} from "./module"
 import {Store} from "vuex";
 
-export {VesselStateModule, VesselState, VesselStateActions, VesselStateGetters }
+export {
+	CustomVesselStateMutation,
+	CustomVesselStateMutationRegistrar,
+	CustomVesselStateMutations,
+	VesselState,
+	VesselStateActionContext,
+	VesselStateActions,
+	VesselStateModule,
+	VesselStateGetters,
+	VesselStateModuleOptions
+}
 
 // noinspection JSUnusedGlobalSymbols
-export function createPlugin<R = any>() {
-	return function(store: Store<R>) {
+export function createPlugin<R = any>(options: VesselStateModuleOptions = {}) {
+	return function (store: Store<R>) {
+		const namespace = options.namespace || 'vessel';
 		const module = new VesselStateModule<R>();
 
-		store.registerModule('vessel', module);
+		store.registerModule(namespace, module);
 	}
 }
