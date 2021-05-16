@@ -1,6 +1,6 @@
 {
   "name": "vessel-state",
-  "version": "1.0.0-beta13",
+  "version": "1.0.0-beta14",
   "description": "Takes a stream of data and decodes it into a reactive state for use in Vue components.",
   "scripts": {
     "clean": "rimraf ./dist",
