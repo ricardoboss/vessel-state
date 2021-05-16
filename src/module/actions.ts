@@ -1,7 +1,7 @@
 import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
 import VesselState from "./state";
 import {VesselStateMutations} from "./mutations";
-import {Decoder, GGA, GSA, GSV, HDT, ITalkerSentence, ITalkerSentenceConstructor, ROT, VTG} from "extended-nmea";
+import {Decoder, GGA, GSA, GSV, HDT, ITalkerSentence, ITalkerSentenceConstructor, RMC, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
 export type VesselStateActionContext<R> = Omit<ActionContext<VesselState, R>, "commit"> & {
@@ -92,16 +92,22 @@ export default {
 					context.commit("horizontalDilutionOfPrecision", (sentence as GSA).horizontalDop);
 					context.commit("positionalDilutionOfPrecision", (sentence as GSA).positionalDop);
 					break;
+				case RMC.ID:
+					context.commit("time", (sentence as RMC).time);
+					context.commit("latitude", (sentence as RMC).latitude);
+					context.commit("longitude", (sentence as RMC).longitude);
+					context.commit("speed", (sentence as RMC).speedOverGround);
+					context.commit("course", (sentence as RMC).trackingAngle);
+					context.commit("date", (sentence as RMC).date);
+					break;
 				default:
 					if (typeof CustomVesselStateMutations[id] === 'undefined')
 						break;
 
-					//debugger;
-
 					try {
 						CustomVesselStateMutations[id](context, sentence);
 					} catch (e) {
-						console.warn('Error in custom vessel state mutation: ' + e);
+						console.warn('Error in custom vessel state mutation:', e);
 					}
 					break;
 			}
