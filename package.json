@@ -24,7 +24,7 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
-    "extended-nmea": ">=2.0.0",
+    "extended-nmea": ">=2.0.1",
     "vue": "^2.6.12",
     "vuex": "^3.6.2"
   },

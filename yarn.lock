@@ -2581,10 +2581,10 @@ extend@~3.0.2:
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
-extended-nmea@>=2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/extended-nmea/-/extended-nmea-2.0.0.tgz#574a3239238164f30c02f3738a0cb78b14514811"
-  integrity sha512-6w2+atnVCEnBCi4OTUt/dzbcG0ltYqwCIUkFR1y0zYiYe31IBAs+wwUEGDKXZud9IjPAk1PMlRhwrTor+17vZQ==
+extended-nmea@>=2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/extended-nmea/-/extended-nmea-2.0.1.tgz#effdae804c5224f7e96fb511055125ef34a50ef7"
+  integrity sha512-ayIcrDh5H9U5O1Yo7DM07H2cKzYcCel9gnjBoCThoGRl4Vlx3qS3oHKnergcfILFQyLdJCV0steCvflMk2rkdA==
 
 extglob@^2.0.4:
   version "2.0.4"
