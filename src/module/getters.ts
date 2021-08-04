@@ -1,14 +1,29 @@
-import {Getter, GetterTree} from "vuex";
-import VesselState from ".//state";
+import {GetterTree} from "vuex";
+import VesselState from "./state";
 
-export interface VesselStateGetters<R> extends GetterTree<VesselState, R> {
-	[key: string]: Getter<VesselState, R>;
+type StoreGetters<T extends GetterTree<any, any>> = {[P in keyof T]: ReturnType<T[P]> };
+type VesselGetters<R> = StoreGetters<VesselStateGetters<R>>;
 
-	// aGetter(state: VesselState, getters: any, rootState: any, rootGetters: any): any;
+// noinspection JSUnusedGlobalSymbols
+export default class VesselStateGetters<R> implements GetterTree<VesselState, R> {
+	[key: string]: (
+		state: VesselState,
+		getters: VesselGetters<R>,
+		rootState: R,
+		rootGetters: StoreGetters<GetterTree<R, R>>
+	) => any;
+
+	dateTimestamp(state: VesselState): Date {
+		const date = state.gps.date;
+		const time = state.gps.time;
+
+		return new Date(
+			date.year, date.month - 1, date.day,
+			time.hours, time.minutes, time.seconds, time.milliseconds
+		);
+	}
+
+	unixTimestamp(_state: VesselState, getters: VesselGetters<R>): number {
+		return getters.dateTimestamp.getTime();
+	}
 }
-
-export default {
-	// aGetter(state: VesselState, getters: any, rootState: any, rootGetters: any): any {
-	//
-	// }
-} as VesselStateGetters<any>;
