@@ -1,7 +1,7 @@
 import {
 	CustomVesselStateMutation,
-	CustomVesselStateMutations,
 	CustomVesselStateMutationRegistrar,
+	CustomVesselStateMutations,
 	VesselState,
 	VesselStateActionContext,
 	VesselStateActions,

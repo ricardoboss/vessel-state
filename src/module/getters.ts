@@ -1,7 +1,7 @@
 import {GetterTree} from "vuex";
 import VesselState from "./state";
 
-type StoreGetters<T extends GetterTree<any, any>> = {[P in keyof T]: ReturnType<T[P]> };
+type StoreGetters<T extends GetterTree<any, any>> = { [P in keyof T]: ReturnType<T[P]> };
 type VesselGetters<R> = StoreGetters<VesselStateGetters<R>>;
 
 // noinspection JSUnusedGlobalSymbols

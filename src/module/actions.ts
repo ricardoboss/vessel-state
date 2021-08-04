@@ -9,10 +9,12 @@ export type VesselStateActionContext<R> = Omit<ActionContext<VesselState, R>, "c
 };
 
 type VesselStateActionHandler<R> = (this: Store<R>, context: VesselStateActionContext<R>, payload?: any) => any;
+
 interface VesselStateActionObject<R> {
 	root?: boolean;
 	handler: VesselStateActionHandler<R>;
 }
+
 type VesselStateAction<R> = VesselStateActionHandler<R> | VesselStateActionObject<R>;
 
 export type CustomVesselStateMutation<R, S extends ITalkerSentence = ITalkerSentence> = (context: VesselStateActionContext<R>, sentence: S) => void;

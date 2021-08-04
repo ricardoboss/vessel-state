@@ -4,8 +4,8 @@ import VesselStateGetters from './getters'
 import VesselStateMutations from './mutations'
 import VesselStateActions, {
 	CustomVesselStateMutation,
-	CustomVesselStateMutations,
 	CustomVesselStateMutationRegistrar,
+	CustomVesselStateMutations,
 	VesselStateActionContext
 } from './actions'
 
