@@ -1,6 +1,6 @@
 import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
 import VesselState from "./state";
-import {VesselStateMutations} from "./mutations";
+import VesselStateMutations from "./mutations";
 import {Decoder, GGA, GSA, GSV, HDT, ITalkerSentence, ITalkerSentenceConstructor, RMC, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
@@ -15,13 +15,6 @@ interface VesselStateActionObject<R> {
 }
 type VesselStateAction<R> = VesselStateActionHandler<R> | VesselStateActionObject<R>;
 
-export interface VesselStateActions<R> extends ActionTree<VesselState, R> {
-	[key: string]: VesselStateAction<R>;
-
-	register(context: VesselStateActionContext<R>, payload: {id: string, decoder: ITalkerSentenceConstructor}): any;
-	update(context: VesselStateActionContext<R>, payload: string): any;
-}
-
 export type CustomVesselStateMutation<R, S extends ITalkerSentence = ITalkerSentence> = (context: VesselStateActionContext<R>, sentence: S) => void;
 
 export interface CustomVesselStateMutationRegistrar<R, S extends ITalkerSentence> {
@@ -34,8 +27,10 @@ export class CustomVesselStateMutations {
 	[key: string]: CustomVesselStateMutation<any>;
 }
 
-export default {
-	register<S extends ITalkerSentence = ITalkerSentence>(_: VesselStateActionContext<any>, payload: CustomVesselStateMutationRegistrar<any, S>): any {
+export default class VesselStateActions<R> implements ActionTree<VesselState, R> {
+	[key: string]: VesselStateAction<R>;
+
+	register<S extends ITalkerSentence = ITalkerSentence>(_: VesselStateActionContext<R>, payload: CustomVesselStateMutationRegistrar<R, S>): void {
 		if (!payload.id)
 			throw new Error("No custom sentence id given!");
 
@@ -48,9 +43,9 @@ export default {
 		Decoder.register(payload.id, payload.decoder);
 
 		CustomVesselStateMutations[payload.id] = payload.mutator;
-	},
+	}
 
-	update(context: VesselStateActionContext<any>, payload: string): any {
+	update(context: VesselStateActionContext<R>, payload: string): void {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
@@ -117,4 +112,4 @@ export default {
 			context.commit("countError");
 		}
 	}
-} as VesselStateActions<any>;
+}
