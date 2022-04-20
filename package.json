@@ -1,6 +1,6 @@
 {
   "name": "vessel-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Takes a stream of data and decodes it into a reactive Vuex store for use in Vue components.",
   "license": "MIT",
   "authors": [
