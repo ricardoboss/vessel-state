@@ -59,6 +59,74 @@ this.$store.dispatch('vessel/update', "$--ROT,-1.31,A*38"); // will update the v
 
 ---
 
+## Vessel State Object
+
+The `vessel` store has the following structure:
+
+```JSON
+{
+	"location": {
+		"latitude": {
+			"quadrant": "N",
+			"degrees": 0,
+			"decimal": 0
+		},
+		"longitude": {
+			"quadrant": "E",
+			"degrees": 0,
+			"decimal": 0
+		},
+		"altitude": 0,
+		"geoidalSeparation": 0
+	},
+	"gps": {
+		"dilutionOfPrecision": {
+			"position": 0,
+			"vertical": 0,
+			"horizontal": 0
+		},
+		"satellites": {},
+		"time": {
+			"totalMilliseconds": 0
+		},
+		"date": {
+			"day": 0,
+			"month": 0,
+			"year": 0
+		},
+		"fix": 0
+	},
+	"orientation": {
+		"heading": 0,
+		"pitch": 0,
+		"roll": 0
+	},
+	"route": {
+		"rateOfTurn": 0,
+		"course": 0,
+		"speed": 0,
+		"magneticTrackAngle": 0
+	},
+	"source": {
+		"manufacturer": {
+			"name": ""
+		},
+		"battery": {
+			"voltage": 0,
+			"percent": 0
+		}
+	},
+	"stats": {
+		"lastUpdate": 0,
+		"messages": {
+			"count": 0,
+			"invalid": 0,
+			"errors": 0
+		}
+	}
+}
+```
+
 ## Custom NMEA sentences
 
 Since [ricardoboss/extended-nmea][2] supports the addition of custom sentences, this library also propagates this
