@@ -52,7 +52,7 @@ export default class VesselStateActions<R> implements ActionTree<VesselState, R>
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
 			if (!valid) {
-				context.commit("countInvalid");
+				context.commit("countInvalid", sentence);
 
 				return;
 			}
@@ -109,9 +109,9 @@ export default class VesselStateActions<R> implements ActionTree<VesselState, R>
 					break;
 			}
 
-			context.commit("countMessage");
+			context.commit("countMessage", sentence);
 		} catch (e) {
-			context.commit("countError");
+			context.commit("countError", e);
 		}
 	}
 }

@@ -1,4 +1,11 @@
-import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
+import {
+	DateOnly,
+	GeoCoordinate,
+	GgaQualityIndicator,
+	GsvSatellite,
+	INmeaSentence,
+	TimeOnly
+} from "extended-nmea";
 
 export default interface VesselState {
 	location: {
@@ -45,7 +52,10 @@ export default interface VesselState {
 		messages: {
 			count: number,
 			invalid: number,
-			errors: number
+			errors: number,
+			lastMessage: null|INmeaSentence,
+			lastInvalid: null|INmeaSentence,
+			lastError: null|Error,
 		},
 	},
 }
@@ -94,6 +104,9 @@ export const initial = {
 			count: 0,
 			invalid: 0,
 			errors: 0,
+			lastMessage: null,
+			lastInvalid: null,
+			lastError: null,
 		},
 	},
 } as VesselState;

@@ -1,6 +1,13 @@
 import {Mutation, MutationTree} from "vuex";
 import VesselState from "./state";
-import {DateOnly, GeoCoordinate, GgaQualityIndicator, GsvSatellite, TimeOnly} from "extended-nmea";
+import {
+	DateOnly,
+	GeoCoordinate,
+	GgaQualityIndicator,
+	GsvSatellite,
+	INmeaSentence,
+	TimeOnly
+} from "extended-nmea";
 
 interface CustomMutationPayload {
 	path: string;
@@ -124,18 +131,21 @@ export default class VesselStateMutations implements MutationTree<VesselState> {
 		state.stats.lastUpdate = Date.now();
 	}
 
-	countMessage(state: VesselState): any {
+	countMessage(state: VesselState, message: INmeaSentence): any {
 		state.stats.messages.count++;
+		state.stats.messages.lastMessage = message;
 	}
 
-	countInvalid(state: VesselState): any {
+	countInvalid(state: VesselState, message: INmeaSentence): any {
 		state.stats.messages.count++;
 		state.stats.messages.invalid++;
+		state.stats.messages.lastInvalid = message;
 	}
 
-	countError(state: VesselState): any {
+	countError(state: VesselState, error: Error): any {
 		state.stats.messages.count++;
 		state.stats.messages.errors++;
+		state.stats.messages.lastError = error;
 	}
 
 	custom(state: VesselState, payload: CustomMutationPayload): any {
