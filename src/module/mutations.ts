@@ -69,6 +69,7 @@ export default class VesselStateMutations implements MutationTree<VesselState> {
 
 	course(state: VesselState, payload: number): any {
 		state.route.course = payload;
+		state.stats.lastUpdate = Date.now();
 	}
 
 	rateOfTurn(state: VesselState, payload: number): any {

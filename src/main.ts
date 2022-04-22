@@ -27,7 +27,7 @@ export {
 export function createPlugin<R = any>(options: VesselStateModuleOptions = {}) {
 	return function (store: Store<R>) {
 		const namespace = options.namespace || 'vessel';
-		const module = new VesselStateModule<R>();
+		const module = new VesselStateModule<R>(options);
 
 		store.registerModule(namespace, module);
 	}
