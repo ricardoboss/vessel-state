@@ -10,6 +10,8 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "vue-cli-service build --target lib src/main.ts && tsc --emitDeclarationOnly",
+    "watch": "vue-cli-service build --watch --target lib src/main.ts",
+    "watch-ts": "tsc --watch --emitDeclarationOnly",
     "pub": "yarn run clean && yarn run build && yarn publish",
     "pub:beta": "yarn run clean && yarn run build && yarn publish --tag beta",
     "test": "cross-env TS_NODE_TRANSPILE_ONLY=true NODE_ENV=test mocha --ui bdd --recursive --require ts-node/register test/**/*.test.ts",
@@ -24,7 +26,7 @@
     "dist/**/*.d.ts"
   ],
   "dependencies": {
-    "extended-nmea": ">=2.0.1",
+    "extended-nmea": "^2.1",
     "vue": "^2.6.13",
     "vuex": "^3.6.2"
   },
