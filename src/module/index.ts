@@ -1,12 +1,14 @@
 import {Module} from 'vuex'
 import VesselState, {initial} from './state'
-import VesselStateGetters from './getters'
-import VesselStateMutations from './mutations'
-import VesselStateActions, {
+import {VesselStateGetters, default as getters} from './getters'
+import {VesselStateMutations, default as mutations} from './mutations'
+import {
+	VesselStateActions,
 	CustomVesselStateMutation,
 	CustomVesselStateMutationRegistrar,
 	CustomVesselStateMutations,
-	VesselStateActionContext
+	VesselStateActionContext,
+	default as actions,
 } from './actions'
 
 export {
@@ -32,9 +34,9 @@ export class VesselStateModule<R> implements Module<VesselState, R> {
 	state: VesselState;
 
 	constructor(options: VesselStateModuleOptions = {}) {
-		this.actions = new VesselStateActions<R>();
-		this.getters = new VesselStateGetters<R>();
-		this.mutations = new VesselStateMutations();
+		this.actions = actions;
+		this.getters = getters;
+		this.mutations = mutations;
 		this.state = initial;
 
 		if (options.initialState) Object.assign(this.state, options.initialState);

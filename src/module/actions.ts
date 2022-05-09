@@ -1,6 +1,6 @@
 import {ActionContext, ActionTree, CommitOptions, Store} from "vuex";
 import VesselState from "./state";
-import VesselStateMutations from "./mutations";
+import {VesselStateMutations} from "./mutations";
 import {Decoder, GGA, GSA, GSV, HDT, ITalkerSentence, ITalkerSentenceConstructor, RMC, ROT, VTG} from "extended-nmea";
 
 type MutationKey = keyof VesselStateMutations;
@@ -29,10 +29,15 @@ export class CustomVesselStateMutations {
 	[key: string]: CustomVesselStateMutation<any>;
 }
 
-export default class VesselStateActions<R> implements ActionTree<VesselState, R> {
+export interface VesselStateActions<R> extends ActionTree<VesselState, R> {
 	[key: string]: VesselStateAction<R>;
 
-	register<S extends ITalkerSentence = ITalkerSentence>(_: VesselStateActionContext<R>, payload: CustomVesselStateMutationRegistrar<R, S>): void {
+	register<S extends ITalkerSentence = ITalkerSentence>(_: VesselStateActionContext<R>, payload: CustomVesselStateMutationRegistrar<R, S>): void;
+	update(context: VesselStateActionContext<R>, payload: string): void
+}
+
+export default {
+	register<R, S extends ITalkerSentence = ITalkerSentence>(_: VesselStateActionContext<R>, payload: CustomVesselStateMutationRegistrar<R, S>): void {
 		if (!payload.id)
 			throw new Error("No custom sentence id given!");
 
@@ -45,9 +50,9 @@ export default class VesselStateActions<R> implements ActionTree<VesselState, R>
 		Decoder.register(payload.id, payload.decoder);
 
 		CustomVesselStateMutations[payload.id] = payload.mutator;
-	}
+	},
 
-	update(context: VesselStateActionContext<R>, payload: string): void {
+	update<R>(context: VesselStateActionContext<R>, payload: string): void {
 		try {
 			const sentence = Decoder.decodeTalker(payload);
 			const valid = sentence.valid;
@@ -110,8 +115,10 @@ export default class VesselStateActions<R> implements ActionTree<VesselState, R>
 			}
 
 			context.commit("countMessage", sentence);
-		} catch (e) {
-			context.commit("countError", e);
+		} catch (e: unknown) {
+			if (e instanceof Error) {
+				context.commit("countError", e);
+			}
 		}
 	}
-}
+} as VesselStateActions<any>;
